@@ -13,11 +13,15 @@ local cui = castle.ui
 
 local log =
   require("https://raw.githubusercontent.com/ccheever/castle-utils/c5a150bf783bfcaf24bbcf8cbe0824fae34a8198/log.lua")
+local cursorWidth
+local cursorHeight
 
 function love.load()
   -- love.mouse.setVisible(true)
   love.mouse.setVisible(false) -- make default mouse invisible
   img = love.graphics.newImage("cross-black.png") -- load in a custom mouse image
+  cursorWidth = img:getWidth()
+  cursorHeight = img:getHeight()
   canvas = love.graphics.newCanvas(WIDTH, HEIGHT)
   lastX, lastY = love.mouse.getPosition()
 end
@@ -28,7 +32,7 @@ function love.draw()
   -- love.graphics.print("Hello World", 400, 300)
   local x, y = love.mouse.getPosition() -- get the position of the mouse
   -- print("x,y = ",x,y)
-  love.graphics.draw(img, x, y) -- draw the custom mouse image
+  love.graphics.draw(img, x - ((cursorWidth - 1) / 2), y - ((cursorHeight - 1) / 2)) -- draw the custom mouse image
   love.graphics.draw(canvas, LEFT, TOP)
 end
 
