@@ -38,3 +38,11 @@ function love.update()
   lastX, lastY = x, y
 end
 
+function love.keypressed(key, scancode, isrepeat)
+  if key == "space" then
+    love.graphics.setCanvas(canvas)
+    love.graphics.setColor(1.0, 1.0, 1.0, 1.0)
+    love.graphics.rectangle("fill", 0, 0, WIDTH, HEIGHT)
+    love.graphics.setCanvas()
+  end
+end
