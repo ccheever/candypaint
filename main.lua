@@ -53,7 +53,6 @@ function love.keypressed(key, scancode, isrepeat)
 end
 
 function castle.uiupdate()
-  castle.ui.text("Hello, world!")
   if cui.button("red") then
     color = {1.0, 0.0, 0.0, 1.0}
   end
