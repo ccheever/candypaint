@@ -1,6 +1,7 @@
 local lastX = nil
 local lastY = nil
 local canvas = nil
+local lineWidth = 1
 
 local HEIGHT = 600
 local WIDTH = 800
@@ -41,18 +42,23 @@ function love.update()
   if love.mouse.isDown(1) then
     love.graphics.setCanvas(canvas)
     love.graphics.setColor(color[1], color[2], color[3], color[4])
+    love.graphics.setLineWidth(lineWidth)
     love.graphics.line(lastX, lastY, x, y)
     love.graphics.setCanvas()
   end
   lastX, lastY = x, y
 end
 
+function clearScreen()
+  love.graphics.setCanvas(canvas)
+  love.graphics.setColor(1.0, 1.0, 1.0, 1.0)
+  love.graphics.rectangle("fill", 0, 0, WIDTH, HEIGHT)
+  love.graphics.setCanvas()
+end
+
 function love.keypressed(key, scancode, isrepeat)
   if key == "space" then
-    love.graphics.setCanvas(canvas)
-    love.graphics.setColor(1.0, 1.0, 1.0, 1.0)
-    love.graphics.rectangle("fill", 0, 0, WIDTH, HEIGHT)
-    love.graphics.setCanvas()
+    clearScreen()
   end
 end
 
@@ -83,5 +89,11 @@ function castle.uiupdate()
   end
   if cui.button("white") then
     color = {1.0, 1.0, 1.0, 1.0}
+  end
+  cui.text("stroke width")
+  lineWidth = cui.rangeInput("stroke width", lineWidth, 0.1, 10, 0.1)
+
+  if cui.button("erase everything") then
+    clearScreen()
   end
 end
