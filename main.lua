@@ -17,6 +17,13 @@ local log =
 local cursorWidth
 local cursorHeight
 
+function clearScreen()
+  love.graphics.setCanvas(canvas)
+  love.graphics.setColor(1.0, 1.0, 1.0, 1.0)
+  love.graphics.rectangle("fill", 0, 0, WIDTH, HEIGHT)
+  love.graphics.setCanvas()
+end
+
 function love.load()
   -- love.mouse.setVisible(true)
   love.mouse.setVisible(false) -- make default mouse invisible
@@ -24,6 +31,7 @@ function love.load()
   cursorWidth = img:getWidth()
   cursorHeight = img:getHeight()
   canvas = love.graphics.newCanvas(WIDTH, HEIGHT)
+  clearScreen()
   lastX, lastY = love.mouse.getPosition()
 end
 
@@ -47,13 +55,6 @@ function love.update()
     love.graphics.setCanvas()
   end
   lastX, lastY = x, y
-end
-
-function clearScreen()
-  love.graphics.setCanvas(canvas)
-  love.graphics.setColor(1.0, 1.0, 1.0, 1.0)
-  love.graphics.rectangle("fill", 0, 0, WIDTH, HEIGHT)
-  love.graphics.setCanvas()
 end
 
 function love.keypressed(key, scancode, isrepeat)
