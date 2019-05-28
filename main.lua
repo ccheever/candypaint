@@ -90,7 +90,9 @@ function castle.uiupdate()
   if cui.button("white") then
     color = {1.0, 1.0, 1.0, 1.0}
   end
-  lineWidth = cui.slider("stroke width", lineWidth, 0.1, 10, 0.1)
+  lineWidth = cui.slider("stroke width", lineWidth, 0.1, 10, {
+    step = 0.1,
+  })
 
   if cui.button("erase everything") then
     clearScreen()
