@@ -33,8 +33,8 @@ function love.draw()
   -- love.graphics.print("Hello World", 400, 300)
   local x, y = love.mouse.getPosition() -- get the position of the mouse
   -- print("x,y = ",x,y)
-  love.graphics.draw(img, x - ((cursorWidth - 1) / 2), y - ((cursorHeight - 1) / 2)) -- draw the custom mouse image
   love.graphics.draw(canvas, LEFT, TOP)
+  love.graphics.draw(img, x - ((cursorWidth - 1) / 2), y - ((cursorHeight - 1) / 2)) -- draw the custom mouse image
 end
 
 function love.update()
