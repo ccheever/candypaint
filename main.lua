@@ -17,6 +17,13 @@ local log =
 local cursorWidth
 local cursorHeight
 
+function clearScreen()
+  love.graphics.setCanvas(canvas)
+  love.graphics.setColor(1.0, 1.0, 1.0, 1.0)
+  love.graphics.rectangle("fill", 0, 0, WIDTH, HEIGHT)
+  love.graphics.setCanvas()
+end
+
 function love.load()
   -- love.mouse.setVisible(true)
   love.mouse.setVisible(false) -- make default mouse invisible
@@ -24,6 +31,7 @@ function love.load()
   cursorWidth = img:getWidth()
   cursorHeight = img:getHeight()
   canvas = love.graphics.newCanvas(WIDTH, HEIGHT)
+  clearScreen()
   lastX, lastY = love.mouse.getPosition()
 end
 
@@ -33,8 +41,8 @@ function love.draw()
   -- love.graphics.print("Hello World", 400, 300)
   local x, y = love.mouse.getPosition() -- get the position of the mouse
   -- print("x,y = ",x,y)
-  love.graphics.draw(img, x - ((cursorWidth - 1) / 2), y - ((cursorHeight - 1) / 2)) -- draw the custom mouse image
   love.graphics.draw(canvas, LEFT, TOP)
+  love.graphics.draw(img, x - ((cursorWidth - 1) / 2), y - ((cursorHeight - 1) / 2)) -- draw the custom mouse image
 end
 
 function love.update()
@@ -47,13 +55,6 @@ function love.update()
     love.graphics.setCanvas()
   end
   lastX, lastY = x, y
-end
-
-function clearScreen()
-  love.graphics.setCanvas(canvas)
-  love.graphics.setColor(1.0, 1.0, 1.0, 1.0)
-  love.graphics.rectangle("fill", 0, 0, WIDTH, HEIGHT)
-  love.graphics.setCanvas()
 end
 
 function love.keypressed(key, scancode, isrepeat)
@@ -90,8 +91,9 @@ function castle.uiupdate()
   if cui.button("white") then
     color = {1.0, 1.0, 1.0, 1.0}
   end
-  cui.text("stroke width")
-  lineWidth = cui.rangeInput("stroke width", lineWidth, 0.1, 10, 0.1)
+  lineWidth = cui.slider("stroke width", lineWidth, 0.1, 10, {
+    step = 0.1,
+  })
 
   if cui.button("erase everything") then
     clearScreen()
